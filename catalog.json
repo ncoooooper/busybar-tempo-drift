@@ -2,5 +2,5 @@
   "category": "music",
   "short_description": "Tap a pulse and see whether your playing sped up or slowed down across the phrase.",
   "description": "Measure the tempo of music through a microphone or tap a phrase to compare its early and late beats. Tap a pulse and see whether your playing sped up or slowed down across the phrase. Tap the wheel button to the beat. After five taps the display compares the first and second halves of the tap intervals. The wheel browses overall, early, late and drift readings. Start clears the current phrase. A gap longer than four seconds begins a fresh phrase.",
-  "changelog": "Add microphone and WAV tempo detection."
+  "changelog": "New screen transitions and high-contrast LED previews."
 }

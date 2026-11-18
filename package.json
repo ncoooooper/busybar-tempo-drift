@@ -1,7 +1,7 @@
 {
   "name": "busybar-tempo-drift",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Tap a pulse and see whether your playing sped up or slowed down across the phrase.",
   "author": "ncoooooper",
   "type": "module",

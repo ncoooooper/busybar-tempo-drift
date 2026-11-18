@@ -6,6 +6,32 @@ An average tempo can hide a phrase that accelerates toward the end. Tempo Drift 
 
 The columns show the last seven measured gaps between taps, oldest first. A taller column means a longer gap. The newest gap is pale blue.
 
+## Screen transitions
+
+Tap a phrase, then turn through the timing measurements for that phrase.
+
+![Tempo Drift front display. Tap a phrase, then turn through the timing measurements for that phrase.](media/guide/screen-transitions.gif)
+
+<details>
+
+<summary>Watch the rear display</summary>
+
+![Tempo Drift rear display during the recorded controls](media/guide/screen-transitions-rear.gif)
+
+</details>
+
+Refresh the microphone reading and watch the reported BPM change across the recorded samples.
+
+![Tempo Drift front display. Refresh the microphone reading and watch the reported BPM change across the recorded samples.](media/guide/screen-transitions-connected.gif)
+
+<details>
+
+<summary>Watch the rear display in connected mode</summary>
+
+![Tempo Drift rear display during the recorded controls](media/guide/screen-transitions-connected-rear.gif)
+
+</details>
+
 ## Tap a phrase
 
 1. Click the wheel to tap consecutive beats. Five taps give four intervals and enough information to compare two halves.
@@ -36,7 +62,7 @@ Open BUSY Bar Emulator. From this repository, run:
 
 Press **Back** to exit.
 
-The GIFs are excerpts from the emulator recording. Each front-display pixel is shown at 9× its original width and height. The end frames pause for reading.
+The GIFs are excerpts from the emulator recording. Each LED occupies a 16 × 16 cell with a black border. The end frames pause for reading.
 
 [Full recording](media/controls.mp4) · [Rear display](screenshots/back-1.png) · [Firmware test](EMULATOR-QA.md) · [MIT license](LICENSE)
 
@@ -66,6 +92,6 @@ Leave the app running through a tempo change or click to request a new reading. 
 
 ![Refreshing the sample returns a different tempo.](media/guide/use-2.gif)
 
-The recordings use example responses on emulator firmware. Each display pixel is enlarged to a 9 × 9 square.
+The recordings use example responses on emulator firmware. Each LED occupies a 16 × 16 cell with a black border.
 
 [python-sounddevice](https://python-sounddevice.readthedocs.io/).
