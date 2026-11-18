@@ -4,6 +4,6 @@
   "name": "Tempo Drift",
   "version": "0.1.0",
   "api_version": "27.12.0",
-  "description": "Tempo Drift",
+  "description": "Tap a pulse and see whether your playing sped up or slowed down across the phrase.",
   "author": "ncoooooper"
 }

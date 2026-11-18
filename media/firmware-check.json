@@ -1,0 +1,19 @@
+{
+  "id": "BB-040",
+  "source": "Interactive device controls and persistent local state on BUSY Bar firmware.",
+  "scenario": "Recorded five beats and navigated to the measured difference between the two halves of the phrase.",
+  "keys": [
+    "ok",
+    "ok",
+    "ok",
+    "ok",
+    "ok",
+    "up",
+    "up",
+    "up"
+  ],
+  "frames": 54,
+  "distinct_frames": 29,
+  "exit": "App io.ncoooooper.tempodrift exited: finished; heap peak 80.8 of 128 KiB",
+  "sha256": "8d2b476641a5872f8fb12b4126648b4520c3dce86dba058806fecec60c786ea8"
+}

@@ -1,0 +1,6 @@
+{
+  "category": "music",
+  "short_description": "Tap a pulse and see whether your playing sped up or slowed down across the phrase.",
+  "description": "Tap a pulse and see whether your playing sped up or slowed down across the phrase. Tap the wheel button to the beat. After five taps the display compares the first and second halves of the tap intervals. The wheel browses overall, early, late and drift readings. Start clears the current phrase. A gap longer than four seconds begins a fresh phrase.",
+  "changelog": "First public version."
+}

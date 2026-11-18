@@ -1,66 +1,12 @@
-import { device } from "@shared/device";
-import { column, render, type Node } from "@busy-app/busy-lib";
-import manifest from "./appmeta/manifest.json";
-
-/** The name the app draws under; the device clears elements by this id. */
-const APP = manifest.id;
-
-/** How often the screen is redrawn. */
-const TICK_MS = 1000;
-
-const WHITE = "#FFFFFFFF";
-const SUBTLE_WHITE = "#FFFFFF80";
-
-/**
- * The frame drawn on every tick. The screen is 72×16, so two short lines are about all that fits.
- */
-function frame(ticks: number): Node {
-  return column({ justify: "center", align: "center" }, [
-    { type: "text", id: "title", text: "Hello", font: "bold", color: WHITE },
-    {
-      type: "text",
-      id: "ticks",
-      text: String(ticks),
-      font: "small",
-      color: SUBTLE_WHITE,
-    },
-  ]);
-}
-
-/** Sends one frame to the device. */
-async function draw(ticks: number): Promise<void> {
-  const elements = render(frame(ticks));
-  await device.DisplayDraw({ application_name: APP, priority: 50, elements });
-}
-
-/**
- * Entry point, called at the end of the file: the device runs this script from top to bottom and starts nothing by itself.
- */
-function main(): void {
-  let ticks = 0;
-  let stopped = false;
-
-  const report = (err: unknown) =>
-    console.error(`${APP}: ${err instanceof Error ? err.message : String(err)}`);
-
-  void draw(ticks).catch(report);
-
-  // Tick errors are reported, not thrown: one failed request must not stop the loop.
-  const timer = setInterval(() => {
-    ticks += 1;
-    void draw(ticks).catch(report);
-  }, TICK_MS);
-
-  // Back leaves the app. Once the timer is cleared and the handler detached, nothing keeps it alive and the device takes the screen back.
-  const unbind = listen("input", (event) => {
-    if (stopped || event.key !== "back" || event.action !== "short") return;
-
-    stopped = true;
-    clearInterval(timer);
-
-    // Not detached from inside the handler itself: with nothing else left the unbind stops the app on the spot, while this handler is still running.
-    setTimeout(unbind, 0);
-  });
-}
-
-main();
+import {desk} from "@shared/desk";
+import {wrap} from "@shared/surface";
+type S={taps:number[];page:number};const names=["Tempo","Early","Late","Drift"];
+function bpm(a:number[]){return a.length?60000*a.length/a.reduce((s,v)=>s+v,0):0;}
+desk<S>({name:"Tempo Drift",accent:"#6DA9E9",motion:{"motif":"interval","color":"#6DA9E9","shine":"#E2F4FF"},initial:()=>({taps:[],page:0}),render:s=>{
+ const intervals=s.taps.slice(1).map((t,i)=>t-s.taps[i]),half=Math.floor(intervals.length/2);
+ const overall=bpm(intervals),early=bpm(intervals.slice(0,half)),late=bpm(half?intervals.slice(-half):[]);
+ const drift=late-early,valid=s.page===0?intervals.length>=1:intervals.length>=4;
+ return {title:names[s.page],value:valid?(s.page===3&&drift>0?"+":"")+Math.round([overall,early,late,drift][s.page])+" BPM":"Tap beat",
+ lines:["Taps "+s.taps.length+" / 24","Early "+Math.round(early)+" / late "+Math.round(late),"Delta "+(drift>0?"+":"")+drift.toFixed(1)+" BPM","Click: tap the beat","Wheel: compare halves","Start: new phrase"]};},
+ action:(s,k,now)=>{if(k==="ok"){const last=s.taps[s.taps.length-1];if(last&&now-last<100)return;if(!last||now-last>4000)s.taps=[];s.taps=s.taps.concat([now]).slice(-24);}
+ if(k==="start")s.taps=[];if(k==="up"||k==="down")s.page=wrap(s.page+(k==="up"?1:-1),4);}});
