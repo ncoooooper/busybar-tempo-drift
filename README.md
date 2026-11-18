@@ -4,6 +4,8 @@ Tap a pulse and see whether your playing sped up or slowed down across the phras
 
 An average tempo can hide a phrase that accelerates toward the end. Tempo Drift compares the first and last groups of beat intervals and shows how far apart they were.
 
+The columns show the last seven measured gaps between taps, oldest first. A taller column means a longer gap. The newest gap is pale blue.
+
 ## Tap a phrase
 
 1. Click the wheel to tap consecutive beats. Five taps give four intervals and enough information to compare two halves.

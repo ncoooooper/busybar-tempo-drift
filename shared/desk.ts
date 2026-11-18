@@ -1,6 +1,6 @@
 import {surface,read,persist,label,panel,rect,type Frame,type Key,type MotionOptions} from "./surface";
 import {loadValues} from "./settings";
-export type View={title:string;value:string;lines:string[];progress?:number;art?:Frame};
+export type View={title:string;value:string;lines:string[];progress?:number;art?:Frame;marks?:Frame};
 type Def<T>={name:string;accent:string;motion:MotionOptions;initial:()=>T;render:(state:T,now:number)=>View;
  action:(state:T,key:Key,now:number)=>void; ticking?:(state:T)=>boolean;
  configure?:(state:T,values:Record<string,unknown>)=>void};
@@ -16,7 +16,8 @@ export function desk<T>(def:Def<T>){
   const v=def.render(state,Date.now());
   const out:Frame=v.art?v.art.slice():[label("caption",v.title.toUpperCase(),1,0,def.accent+"FF","front","tiny"),
     label("number",v.value,1,6,"#FFF2D7FF","front","small")];
-  if(v.progress!==undefined&&!v.art&&v.value.length<=8){
+  if(v.marks)out.push(...v.marks);
+  else if(v.progress!==undefined&&!v.art&&v.value.length<=8){
    const n=Math.round(Math.max(0,Math.min(1,v.progress))*6);
    for(let i=0;i<6;i++)out.push(rect("meter"+i,51+i*3,14-i,2,i+1,i<n?def.accent+"FF":"#29353CFF"));
   }
