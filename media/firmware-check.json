@@ -15,7 +15,7 @@
   "frames": 54,
   "distinct_frames": 29,
   "exit": "App io.ncoooooper.tempodrift exited: finished; heap peak 80.8 of 128 KiB",
-  "sha256": "a7ba93d5596b1d592a4a2c7bb41fa9209ad3778c78d7f6d90c68fa94ffa9e96b",
+  "sha256": "c20ca722dfd94c383f65d6f25d5a955142b098c440538b35ec07fa95a23c1053",
   "display_test": {
     "firmware": "1.3.1",
     "input": "On-device controls",

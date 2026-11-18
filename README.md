@@ -1,6 +1,6 @@
 # Tempo Drift
 
-Tap a pulse and see whether your playing sped up or slowed down across the phrase.
+Measure the tempo of music through a microphone or tap a phrase to compare its early and late beats.
 
 An average tempo can hide a phrase that accelerates toward the end. Tempo Drift compares the first and last groups of beat intervals and shows how far apart they were.
 
@@ -39,3 +39,33 @@ Press **Back** to exit.
 The GIFs are excerpts from the emulator recording. Each front-display pixel is shown at 9× its original width and height. The end frames pause for reading.
 
 [Full recording](media/controls.mp4) · [Rear display](screenshots/back-1.png) · [Firmware test](EMULATOR-QA.md) · [MIT license](LICENSE)
+
+## Additional source setup
+
+Leave Local companion URL empty to tap the beat on the wheel. For microphone mode, install `companion/requirements.txt` in a Python virtual environment. Give the companion computer microphone permission. On Linux install PortAudio if sounddevice cannot find it. To list audio inputs run `python3 -m sounddevice`. Add the chosen input index as `device` in the config, or use the default microphone. Place it where it can hear the music. You can also put a local 16-bit PCM WAV path in `wav`.
+
+From the repository root, copy the example and start the companion with Python 3.10 or newer.
+
+```sh
+cp companion/example.json config.json
+# Edit config.json for your source before starting the server.
+python3 companion/serve.py --config config.json
+```
+
+In the emulator, run `~/.busy-emulator/bin/busy-emulator allow-local 8770` and approve that port. Open **Apps → Tempo Drift → Setup**, set **Local companion URL** to `http://127.0.0.1:8770/reading`, save, then reopen the app. For a physical bar, start the companion with `--host YOUR_LAN_IP` and replace `127.0.0.1` with that address. Bind only to your trusted network. Open `/reading` on the host to inspect the current reading. Keep credentials in the host environment.
+
+## Measure a playing track
+
+Start the companion with the example config. A six-second microphone capture estimates repeated onsets between 60 and 200 BPM. Keep the room quiet enough to hear the beat. The display reads Listening when the recording lacks enough rhythmic evidence.
+
+![A recorded response changes the BPM on the front display.](media/guide/use-1.gif)
+
+## Compare two passages
+
+Leave the app running through a tempo change or click to request a new reading. Syncopation and half-time rhythms can lead to a double- or half-tempo reading. Compare against tap mode if the displayed pulse differs from what you count.
+
+![Refreshing the sample returns a different tempo.](media/guide/use-2.gif)
+
+The recordings use example responses on emulator firmware. Each display pixel is enlarged to a 9 × 9 square.
+
+[python-sounddevice](https://python-sounddevice.readthedocs.io/).
